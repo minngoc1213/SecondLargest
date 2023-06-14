@@ -8,7 +8,7 @@ import java.util.Scanner;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        int n=0;
+        int n = 0;
         ArrayList<Double> array = new ArrayList<>();
 
         // Đọc mảng
@@ -22,7 +22,7 @@ public class Main {
         if (n <= 0) {
             return;
         }
-        for (int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             try {
                 array.add(scanner.nextDouble());
             } catch (InputMismatchException e) {
@@ -32,7 +32,7 @@ public class Main {
         }
 
         double max = array.get(0), ratmax = array.get(0);
-        for (double x: array) {
+        for (double x : array) {
             if (x > ratmax) {
                 max = ratmax;
                 ratmax = x;
