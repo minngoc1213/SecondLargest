@@ -1,57 +1,61 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        int n=0;
-        ArrayList<Double> array = new ArrayList<>();
+        int inputQuantity = 0;
+        ArrayList<Double> inputList = new ArrayList<>();
 
-        // Đọc mảng
         System.out.print("Nhap so luong phan tu: ");
         Scanner scanner = new Scanner(System.in);
         try {
-            n = scanner.nextInt();
+            inputQuantity = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Input error!");
-        }
-        if (n <= 0) {
             return;
         }
-        for (int i=0; i<n; i++) {
+
+        if (inputQuantity < 2) {
+            System.out.println("Phai co it nhat 2 phan tu.");
+            return;
+        }
+        for (int i = 0; i < inputQuantity; i++) {
             try {
-                array.add(scanner.nextDouble());
+                inputList.add(scanner.nextDouble());
             } catch (InputMismatchException e) {
                 System.out.println("Input error!");
-                break;
+                return;
             }
         }
 
-        double max = array.get(0), ratmax = array.get(0);
-        for (double x: array) {
-            if (x > ratmax) {
-                max = ratmax;
-                ratmax = x;
-                continue;
-            }
-            if (x < max) {
-                ratmax = max;
-                max = x;
+        double stLargest;
+        double ndLargest;
+        if (inputList.get(0) > inputList.get(1)) {
+            stLargest = inputList.get(0);
+            ndLargest = inputList.get(1);
+        } else {
+            stLargest = inputList.get(1);
+            ndLargest = inputList.get(0);
+        }
+
+        for (double x : inputList) {
+            if (x > stLargest) {
+                ndLargest = stLargest;
+                stLargest = x;
+            } else if (x != stLargest && x > ndLargest) {
+                ndLargest = x;
             }
         }
 
-        if (Objects.equals(max, ratmax)) {
+        if (Objects.equals(stLargest, ndLargest)) {
             System.out.println("Khong co so lon thu 2.");
         } else {
-            System.out.println("So lon thu 2 la " + max);
+            System.out.println("So lon thu 2 la " + ndLargest);
         }
 
         scanner.close();
-        return;
     }
 
 }
