@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int inputQuantity = 0;
+        Scanner scanner = new Scanner(System.in);
+
+        int inputQuantity;
         ArrayList<Double> inputList = new ArrayList<>();
 
-        System.out.print("Nhap so luong phan tu: ");
-        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the quantity number: ");
         try {
             inputQuantity = scanner.nextInt();
         } catch (InputMismatchException e) {
@@ -18,9 +18,10 @@ public class Main {
         }
 
         if (inputQuantity < 2) {
-            System.out.println("Phai co it nhat 2 phan tu.");
+            System.out.println("Quantity must be greater than 1!");
             return;
         }
+
         for (int i = 0; i < inputQuantity; i++) {
             try {
                 inputList.add(scanner.nextDouble());
@@ -30,29 +31,27 @@ public class Main {
             }
         }
 
-        double stLargest;
-        double ndLargest;
-        if (inputList.get(0) > inputList.get(1)) {
-            stLargest = inputList.get(0);
-            ndLargest = inputList.get(1);
-        } else {
-            stLargest = inputList.get(1);
-            ndLargest = inputList.get(0);
-        }
+        double largest = inputList.get(0);
+        double secondLargest = inputList.get(0);
 
-        for (double x : inputList) {
-            if (x > stLargest) {
-                ndLargest = stLargest;
-                stLargest = x;
-            } else if (x != stLargest && x > ndLargest) {
-                ndLargest = x;
+        for (int i = 1; i < inputQuantity; i++) {
+            double tmp = inputList.get(i);
+
+            if (tmp > largest) {
+                secondLargest = largest;
+                largest = tmp;
+                continue;
+            }
+
+            if (tmp != largest && (tmp > secondLargest || largest == secondLargest)) {
+                secondLargest = tmp;
             }
         }
 
-        if (Objects.equals(stLargest, ndLargest)) {
-            System.out.println("Khong co so lon thu 2.");
+        if (largest == secondLargest) {
+            System.out.println("Array does not exist 2nd largest number!");
         } else {
-            System.out.println("So lon thu 2 la " + ndLargest);
+            System.out.println("The 2nd largest number is " + secondLargest);
         }
 
         scanner.close();
